@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.shopmanager.dao.EvaluateMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.shopmanager.bean.Evaluate">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="phone" jdbcType="CHAR" property="phone" />
+    <result column="logistician" jdbcType="VARCHAR" property="logistician" />
+    <result column="evaluate_content" jdbcType="VARCHAR" property="evaluateContent" />
+    <result column="logistics_grade" jdbcType="INTEGER" property="logisticsGrade" />
+    <result column="laundry_grade" jdbcType="INTEGER" property="laundryGrade" />
+    <result column="evaluate_time" jdbcType="TIMESTAMP" property="evaluateTime" />
+    <result column="spare" jdbcType="VARCHAR" property="spare" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, order_num, user_name, phone, logistician, evaluate_content, logistics_grade, 
+    laundry_grade, evaluate_time, spare
+  </sql>
+  <select id="selectByExample" parameterType="com.atguigu.shopmanager.bean.EvaluateExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_evaluate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_evaluate
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_evaluate
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.atguigu.shopmanager.bean.EvaluateExample">
+    delete from t_evaluate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.shopmanager.bean.Evaluate">
+    insert into t_evaluate (id, order_num, user_name, 
+      phone, logistician, evaluate_content, 
+      logistics_grade, laundry_grade, evaluate_time, 
+      spare)
+    values (#{id,jdbcType=INTEGER}, #{orderNum,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=CHAR}, #{logistician,jdbcType=VARCHAR}, #{evaluateContent,jdbcType=VARCHAR}, 
+      #{logisticsGrade,jdbcType=INTEGER}, #{laundryGrade,jdbcType=INTEGER}, #{evaluateTime,jdbcType=TIMESTAMP}, 
+      #{spare,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.shopmanager.bean.Evaluate">
+    insert into t_evaluate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderNum != null">
+        order_num,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="logistician != null">
+        logistician,
+      </if>
+      <if test="evaluateContent != null">
+        evaluate_content,
+      </if>
+      <if test="logisticsGrade != null">
+        logistics_grade,
+      </if>
+      <if test="laundryGrade != null">
+        laundry_grade,
+      </if>
+      <if test="evaluateTime != null">
+        evaluate_time,
+      </if>
+      <if test="spare != null">
+        spare,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null">
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=CHAR},
+      </if>
+      <if test="logistician != null">
+        #{logistician,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateContent != null">
+        #{evaluateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsGrade != null">
+        #{logisticsGrade,jdbcType=INTEGER},
+      </if>
+      <if test="laundryGrade != null">
+        #{laundryGrade,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateTime != null">
+        #{evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spare != null">
+        #{spare,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.atguigu.shopmanager.bean.EvaluateExample" resultType="java.lang.Long">
+    select count(*) from t_evaluate
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_evaluate
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderNum != null">
+        order_num = #{record.orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=CHAR},
+      </if>
+      <if test="record.logistician != null">
+        logistician = #{record.logistician,jdbcType=VARCHAR},
+      </if>
+      <if test="record.evaluateContent != null">
+        evaluate_content = #{record.evaluateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logisticsGrade != null">
+        logistics_grade = #{record.logisticsGrade,jdbcType=INTEGER},
+      </if>
+      <if test="record.laundryGrade != null">
+        laundry_grade = #{record.laundryGrade,jdbcType=INTEGER},
+      </if>
+      <if test="record.evaluateTime != null">
+        evaluate_time = #{record.evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.spare != null">
+        spare = #{record.spare,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_evaluate
+    set id = #{record.id,jdbcType=INTEGER},
+      order_num = #{record.orderNum,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=CHAR},
+      logistician = #{record.logistician,jdbcType=VARCHAR},
+      evaluate_content = #{record.evaluateContent,jdbcType=VARCHAR},
+      logistics_grade = #{record.logisticsGrade,jdbcType=INTEGER},
+      laundry_grade = #{record.laundryGrade,jdbcType=INTEGER},
+      evaluate_time = #{record.evaluateTime,jdbcType=TIMESTAMP},
+      spare = #{record.spare,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.shopmanager.bean.Evaluate">
+    update t_evaluate
+    <set>
+      <if test="orderNum != null">
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="logistician != null">
+        logistician = #{logistician,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateContent != null">
+        evaluate_content = #{evaluateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsGrade != null">
+        logistics_grade = #{logisticsGrade,jdbcType=INTEGER},
+      </if>
+      <if test="laundryGrade != null">
+        laundry_grade = #{laundryGrade,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateTime != null">
+        evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spare != null">
+        spare = #{spare,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.shopmanager.bean.Evaluate">
+    update t_evaluate
+    set order_num = #{orderNum,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=CHAR},
+      logistician = #{logistician,jdbcType=VARCHAR},
+      evaluate_content = #{evaluateContent,jdbcType=VARCHAR},
+      logistics_grade = #{logisticsGrade,jdbcType=INTEGER},
+      laundry_grade = #{laundryGrade,jdbcType=INTEGER},
+      evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP},
+      spare = #{spare,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

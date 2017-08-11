@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.shopmanager.dao.TransportMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.shopmanager.bean.Transport">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="transport_line" jdbcType="VARCHAR" property="transportLine" />
+    <result column="shelf_number" jdbcType="VARCHAR" property="shelfNumber" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.atguigu.shopmanager.bean.Transport">
+    <result column="cloth_code" jdbcType="VARBINARY" property="clothCode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, transport_line, shelf_number, order_num
+  </sql>
+  <sql id="Blob_Column_List">
+    cloth_code
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.atguigu.shopmanager.bean.TransportExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_transport
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.atguigu.shopmanager.bean.TransportExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_transport
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_transport
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_transport
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.atguigu.shopmanager.bean.TransportExample">
+    delete from t_transport
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.shopmanager.bean.Transport">
+    insert into t_transport (id, transport_line, shelf_number, 
+      order_num, cloth_code)
+    values (#{id,jdbcType=INTEGER}, #{transportLine,jdbcType=VARCHAR}, #{shelfNumber,jdbcType=VARCHAR}, 
+      #{orderNum,jdbcType=INTEGER}, #{clothCode,jdbcType=VARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.shopmanager.bean.Transport">
+    insert into t_transport
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="transportLine != null">
+        transport_line,
+      </if>
+      <if test="shelfNumber != null">
+        shelf_number,
+      </if>
+      <if test="orderNum != null">
+        order_num,
+      </if>
+      <if test="clothCode != null">
+        cloth_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="transportLine != null">
+        #{transportLine,jdbcType=VARCHAR},
+      </if>
+      <if test="shelfNumber != null">
+        #{shelfNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null">
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="clothCode != null">
+        #{clothCode,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.atguigu.shopmanager.bean.TransportExample" resultType="java.lang.Long">
+    select count(*) from t_transport
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_transport
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.transportLine != null">
+        transport_line = #{record.transportLine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shelfNumber != null">
+        shelf_number = #{record.shelfNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNum != null">
+        order_num = #{record.orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.clothCode != null">
+        cloth_code = #{record.clothCode,jdbcType=VARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update t_transport
+    set id = #{record.id,jdbcType=INTEGER},
+      transport_line = #{record.transportLine,jdbcType=VARCHAR},
+      shelf_number = #{record.shelfNumber,jdbcType=VARCHAR},
+      order_num = #{record.orderNum,jdbcType=INTEGER},
+      cloth_code = #{record.clothCode,jdbcType=VARBINARY}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_transport
+    set id = #{record.id,jdbcType=INTEGER},
+      transport_line = #{record.transportLine,jdbcType=VARCHAR},
+      shelf_number = #{record.shelfNumber,jdbcType=VARCHAR},
+      order_num = #{record.orderNum,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.shopmanager.bean.Transport">
+    update t_transport
+    <set>
+      <if test="transportLine != null">
+        transport_line = #{transportLine,jdbcType=VARCHAR},
+      </if>
+      <if test="shelfNumber != null">
+        shelf_number = #{shelfNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null">
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="clothCode != null">
+        cloth_code = #{clothCode,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.atguigu.shopmanager.bean.Transport">
+    update t_transport
+    set transport_line = #{transportLine,jdbcType=VARCHAR},
+      shelf_number = #{shelfNumber,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      cloth_code = #{clothCode,jdbcType=VARBINARY}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.shopmanager.bean.Transport">
+    update t_transport
+    set transport_line = #{transportLine,jdbcType=VARCHAR},
+      shelf_number = #{shelfNumber,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
