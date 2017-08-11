@@ -13,7 +13,7 @@ public class CTPListener  implements ServletContextListener{
 	        servletContext.setAttribute("ctp", servletContext.getContextPath());
 		
 	}
-
+	//这是一个注释 。。xiao
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		// TODO Auto-generated method stub
